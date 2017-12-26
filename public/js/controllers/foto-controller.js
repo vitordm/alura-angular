@@ -23,7 +23,6 @@ angular.module("alurapic").controller("FotoController", function($scope, $http, 
             if ($scope.foto._id) {
                 $http.put("/v1/fotos/" + $scope.foto._id, $scope.foto)
                 .success(function() {
-                    $scope.foto = {};
                     $scope.mensagem = "Foto alterada com sucesso!";
                 })
                 .error(function(err) {
