@@ -16,6 +16,6 @@ angular.module('minhasDiretivas', [])
                 titulo: "@",
                 url: "@"
             },
-            template: '<img class="img-responsive center-block" ng-src="{{url}}" alt="{{titulo}}">'
+            template: '<img class="img-responsive center-block fotoListagem" ng-src="{{url}}" alt="{{titulo}}">'
         }
     });
