@@ -1,4 +1,4 @@
-angular.module("alurapic").controller("FotoController", function($scope, $http, $routeParams, recursoFoto) {
+angular.module("alurapic").controller("FotoController", function($scope, $http, $routeParams,recursoFoto, cadastroFotos) {
     $scope.foto = {};
     $scope.mensagem = "";
     
@@ -33,47 +33,16 @@ angular.module("alurapic").controller("FotoController", function($scope, $http, 
         console.log(this);
 
         if ($scope.formulario.$valid) {
-
-            if ($scope.foto._id) {
-                recursoFoto.update({fotoId: $routeParams.fotoId}, $scope.foto, function() {
-                    $scope.mensagem = "Foto alterada com sucesso!";
-                }, function(err) {
-                    console.error(err);
-                    $scope.mensagem = "Erro ao alterar!";
-                });
-                /*
-                $http.put("/v1/fotos/" + $scope.foto._id, $scope.foto)
-                .success(function() {
-                    $scope.mensagem = "Foto alterada com sucesso!";
-                })
-                .error(function(err) {
-                    console.error(err);
-                    $scope.mensagem = "Erro ao alterar!";
-                });
-                */
-                return;
+            if ($scope.formulario.$valid) {
+                cadastroFotos.cadastrar($scope.foto)
+                    .then(function(result){
+                        $scope.mensagem = result.mensagem;
+                    })
+                    .catch(function(erro) {
+                        $scope.mensagem = erro.mensagem;
+                    })
             }
-
-            recursoFoto.save($scope.foto, function() {
-                $scope.foto = {};
-                $scope.mensagem = "Foto cadastrada com sucesso!";
-            }, function(err) {
-                console.error(err);
-                $scope.mensagem = "Erro ao cadastrar!";
-            })
-            /*
-            $http.post("/v1/fotos", $scope.foto)
-                .success(function() {
-                    $scope.foto = {};
-                    $scope.mensagem = "Foto cadastrada com sucesso!";
-                })
-                .error(function(err) {
-                    console.error(err);
-                    $scope.mensagem = "Erro ao cadastrar!";
-                });
-            */
         }
-
-        //return false;
+    
     }
 });
