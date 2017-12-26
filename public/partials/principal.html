@@ -1,8 +1,10 @@
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="text-center">Alurapic</h1>
-    </div>
-    <div class="row">
+<div class="jumbotron">
+    <h1 class="text-center">Alurapic</h1>
+</div>
+<div class="row">
+        <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+</div>
+<div class="row">
         <div class="col-md-12">
             <form>
                 <div class="input-group">
@@ -11,16 +13,18 @@
                             Nova foto
                         </a>
                     </span>
-                    <input type="search" class="form-control" placeholder="Filtrar" ng-model="filtro" ng-model-options="{debounce: 500}">
-                </div> 
+                    <input class="form-control" placeholder="filtrar pelo título da foto" 
+                        ng-model="filtro" ng-model-options="{ debounce: 500 }">
             </form>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <meu-painel class="col-md-3 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
-            <minha-foto titulo="{{foto.titulo}}" url="{{foto.url}}"></minha-foto>
+        </div> <!-- fim col-md-12 -->
+</div> <!-- fim row -->
+<div class="row " style="margin:10px"></div>
+<div class="row">
+    <div class="col-md-12">
+        <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}">
+            <minha-foto url="{{foto.url}}" alt="{{foto.titulo}}"></minha-foto>
+            <a href="/fotos/edit/{{foto._id}}" class="btn btn-primary btn-block">Editar</a>
+            <button ng-click="remover(foto)" class="btn btn-danger btn-block">Remover</button>
         </meu-painel>
-    </div>
-    
-</div> <!-- fim container -->        
+    </div> 
+</div> 
