@@ -16,16 +16,6 @@ angular.module("alurapic").controller("FotoController", function($scope, $http, 
             console.log(err);
             $scope.mensagem = "Erro ao buscar foto (" + $routeParams.fotoId +") !";
         })
-        /*
-        $http.get("/v1/fotos/" + $routeParams.fotoId)
-        .success(function(foto){
-            console.log(foto);
-            $scope.foto = foto;
-        })
-        .error(function(err){
-            console.log(err);
-            $scope.mensagem = "Erro ao buscar foto (" + $routeParams.fotoId +") !";
-        })*/
     }
 
     $scope.submeter = function() {
@@ -37,6 +27,12 @@ angular.module("alurapic").controller("FotoController", function($scope, $http, 
                 cadastroFotos.cadastrar($scope.foto)
                     .then(function(result){
                         $scope.mensagem = result.mensagem;
+                        if (result.inclusao) {
+                            $scope.foto = {};
+                        }
+                        /* // Para o Watch
+                        $scope.focado = true;
+                        */
                     })
                     .catch(function(erro) {
                         $scope.mensagem = erro.mensagem;
